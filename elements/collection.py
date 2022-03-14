@@ -1,7 +1,7 @@
-class Entities:
+class Collection:
     """A collection of entities.
 
-    The responsibility of a cast is to keep track of a collection of entities. It has methods for adding,
+    The responsibility of a collection is to keep track of a collection of entities. It has methods for adding,
     removing and getting them by a group name.
 
     Attributes:
@@ -75,7 +75,7 @@ class Entities:
         """
         result = None
         if group in self._entities.keys():
-            result = self.add_entity[group][idx]
+            result = self._entities[group][idx]
         return result
 
     def remove_entity(self, group, entity):
