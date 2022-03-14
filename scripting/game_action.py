@@ -1,7 +1,7 @@
 from scripting.action import Action
 from elements.entity import Entity
-import utils.constants as constants
 from utils.point import Point
+import utils.constants as constants
 
 class GameAction(Action):
 
@@ -16,10 +16,20 @@ class GameAction(Action):
             script (Script): The script of Actions in the game.
         """
         if not self._is_game_over:
-            #pass
-            #self._handle_food_collision(collection)
+            self._handle_entity_growth(collection)
             self._handle_segment_collision(collection)
             self._handle_game_over(collection)
+    
+    def _handle_entity_growth(self, collection):
+        """Add segment when the user have move 5 times.
+        
+        Args:
+            collection (collection): The collection of entities in the game.
+        """
+        for cicle in collection.get_entities("cicles"):
+            if cicle.get_qty_moves() >= 5:
+                cicle.grow_tail(1)
+                cicle.reset_moves()
     
     def _handle_segment_collision(self, collection):
         """Sets the game over flag if the snake collides with one of its segments.
@@ -27,13 +37,13 @@ class GameAction(Action):
         Args:
             collection (collection): The collection of entities in the game.
         """
-        first_score = collection.get_entity("scores", 0)
-        first_cicle = collection.get_entity("cicles", 0)
+        first_score = collection.get_entity('scores', 0)
+        first_cicle = collection.get_entity('cicles', 0)
         first_cicle_head = first_cicle.get_head()
         first_cicle_segments = first_cicle.get_segments()[1:]
         
-        second_score = collection.get_entity("scores", 1)
-        second_cicle = collection.get_entity("cicles", 1)
+        second_score = collection.get_entity('scores', 1)
+        second_cicle = collection.get_entity('cicles', 1)
         second_cicle_head = second_cicle.get_head()
         second_cicle_segments = second_cicle.get_segments()[1:]
         
@@ -59,9 +69,16 @@ class GameAction(Action):
             position = Point(x, y)
             
             message = Entity()
-            message.set_text("Game Over!")
+            message.set_text("GAME OVER!")
             message.set_position(position)
             collection.add_entity("messages", message)
+                        
+            position2 = Point(x, y + (constants.CELL_SIZE*2))
+            
+            message2 = Entity()
+            message2.set_text("Press Enter to continue...")
+            message2.set_position(position2)
+            collection.add_entity("messages", message2)
             
             for cicle in collection.get_entities("cicles"):
                 for segment in cicle.get_segments():
