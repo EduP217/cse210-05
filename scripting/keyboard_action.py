@@ -69,6 +69,10 @@ class KeyboardAction(Action):
                 self._direction = Point(0, self._cell_size)
                 is_key_pressed = True
         
+        if self._keyboard_service.is_key_down('enter'):
+            if cicle.get_restart_cicle():
+                cicle.set_restart_cicle(False)
+        
         if is_key_pressed:
             cicle.add_moves()
             cicle.turn_head(self._direction)

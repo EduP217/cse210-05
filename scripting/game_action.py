@@ -15,6 +15,7 @@ class GameAction(Action):
             collection (collection): The collection of entities in the game.
             script (Script): The script of Actions in the game.
         """
+        self._handle_reset_game(collection)
         if not self._is_game_over:
             self._handle_entity_growth(collection)
             self._handle_segment_collision(collection)
@@ -81,5 +82,17 @@ class GameAction(Action):
             collection.add_entity("messages", message2)
             
             for cicle in collection.get_entities("cicles"):
+                cicle.set_restart_cicle(True)
                 for segment in cicle.get_segments():
                     segment.set_color(constants.WHITE)
+                    
+    def _handle_reset_game(self, collection):
+        if self._is_game_over:
+            first_cicle = collection.get_entity('cicles', 0)
+            second_cicle = collection.get_entity('cicles', 1)
+            
+            if first_cicle.get_restart_cicle() == False:
+                collection.remove_all_entities("messages")
+                first_cicle.init_cicle(constants.INITIAL_RED_CICLE_POSITION, constants.RED)
+                second_cicle.init_cicle(constants.INITIAL_GREEN_CICLE_POSITION, constants.GREEN)
+                self._is_game_over = False

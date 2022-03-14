@@ -18,12 +18,14 @@ def main():
     
     # create red entity
     red_score = Score()
-    red_cicle = Snake(Point(int(constants.MAX_X/5),int(constants.MAX_Y/3)), constants.RED)
+    red_cicle = Snake()
+    red_cicle.init_cicle(constants.INITIAL_RED_CICLE_POSITION, constants.RED)
     
     # create green entity
     green_score = Score()
     green_score.set_position(Point(int(constants.MAX_X/2),0))
-    green_cicle = Snake(Point(int(constants.MAX_X/2) + int(constants.MAX_X/5),int(constants.MAX_Y/3)), constants.GREEN)
+    green_cicle = Snake()
+    green_cicle.init_cicle(constants.INITIAL_GREEN_CICLE_POSITION, constants.GREEN)
     
     # create the collection
     collection = Collection()

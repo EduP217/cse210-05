@@ -87,3 +87,12 @@ class Collection:
         """
         if group in self._entities.keys():
             self._entities[group].remove(entity)
+    
+    def remove_all_entities(self, group):
+        """Removes all entities from the given group.
+        
+        Args:
+            group (string): The name of the group.
+        """
+        if group in self._entities.keys():
+            self._entities[group].clear()

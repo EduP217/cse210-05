@@ -22,6 +22,8 @@ class KeyboardService:
         self._keys['j'] = pyray.KEY_J
         self._keys['k'] = pyray.KEY_K
         self._keys['l'] = pyray.KEY_L
+        
+        self._keys['enter'] = pyray.KEY_ENTER
 
     def is_key_up(self, key):
         """Checks if the given key is currently up.

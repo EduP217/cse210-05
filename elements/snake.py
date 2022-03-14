@@ -12,13 +12,11 @@ class Snake(Entity):
     Attributes:
         _points (int): The number of points the food is worth.
     """
-    def __init__(self, position, color):
+    def __init__(self):
         super().__init__()
         self._segments = []
         self._qty_moves = 0
-        self.set_position(position)
-        self.set_color(color)
-        self._prepare_body()
+        self._restart_cicle = False
     
     def get_segments(self):
         return self._segments
@@ -79,3 +77,15 @@ class Snake(Entity):
     
     def reset_moves(self):
         self._qty_moves = 0
+    
+    def init_cicle(self, position, color):
+        self.set_color(color)
+        self.set_position(position)
+        self._segments.clear()
+        self._prepare_body()
+        
+    def get_restart_cicle(self):
+        return self._restart_cicle
+    
+    def set_restart_cicle(self, restart_cicle):
+        self._restart_cicle = restart_cicle
