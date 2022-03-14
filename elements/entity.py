@@ -113,3 +113,6 @@ class Entity:
             velocity (Point): The given velocity.
         """
         self._velocity = velocity
+        
+    def __str__(self) -> str:
+        return f"({self._position.get_x()},{self._position.get_y()})"
